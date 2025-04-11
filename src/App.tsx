@@ -1,9 +1,10 @@
-import './App.less';
+import { DebtListingSection } from './features/debts';
+import './App.styles.less';
 
 function App() {
   return (
     <div className='app'>
-      <h1>Giełda Wierzytelności</h1>
+      <DebtListingSection />
     </div>
   );
 }
