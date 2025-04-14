@@ -1,14 +1,18 @@
-import { formatDate } from '@/features/debts/utils/utils';
-
 import { ParsedDebt, ResponseDebt } from '../types';
 
-export const parseSingleDebt = ({ Id, Name, NIP, Value, Date }: ResponseDebt): ParsedDebt => {
+export const parseSingleDebt = ({
+  Id,
+  Name,
+  NIP,
+  Value,
+  Date: stringDate,
+}: ResponseDebt): ParsedDebt => {
   return {
     id: Id,
     name: Name,
     nip: NIP,
     value: Value,
-    date: formatDate(Date),
+    date: new Date(stringDate),
   };
 };
 

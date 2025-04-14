@@ -15,5 +15,5 @@ export interface ParsedDebt {
   name: string;
   nip: string;
   value: number;
-  date: string;
+  date: Date;
 }

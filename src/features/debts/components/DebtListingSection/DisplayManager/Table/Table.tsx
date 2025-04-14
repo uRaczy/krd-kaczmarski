@@ -1,31 +1,41 @@
 import { ParsedDebt } from '@/features/debts/types/debts/debts';
+import { formatDate } from '@/features/debts/utils/utils';
 
 import './Table.styles.less';
 
 type Props = {
   debts: ParsedDebt[];
+  sortKey: keyof ParsedDebt;
+  handleSort: (key: keyof ParsedDebt) => void;
+  sortDirection: 'asc' | 'desc';
 };
 
-export const Table = ({ debts }: Props) => {
-  console.log(debts);
+export const Table = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
+  const renderSortArrow = (key: keyof ParsedDebt) => {
+    if (sortKey !== key) return null;
+    return sortDirection === 'asc' ? ' 🔼' : ' 🔽';
+  };
+
   return (
     <table>
       <thead>
         <tr>
-          <th>DŁUŻNIK</th>
-          <th>NIP</th>
-          <th>KWOTA ZADŁUŻENIA</th>
-          <th>DATA POWSTANIA ZOBOWIĄZANIA</th>
+          <th onClick={() => handleSort('name')}>DŁUŻNIK {renderSortArrow('name')}</th>
+          <th onClick={() => handleSort('nip')}>NIP {renderSortArrow('nip')}</th>
+          <th onClick={() => handleSort('value')}>KWOTA ZADŁUŻENIA {renderSortArrow('value')}</th>
+          <th onClick={() => handleSort('date')}>
+            DATA POWSTANIA ZOBOWIĄZANIA {renderSortArrow('date')}
+          </th>
         </tr>
       </thead>
       <tbody>
-        {debts.map((debt) => {
+        {debts.map(({ id, name, nip, value, date }) => {
           return (
-            <tr key={debt.id}>
-              <td>{debt.name}</td>
-              <td>{debt.nip}</td>
-              <td>{debt.value}</td>
-              <td>{debt.date}</td>
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{nip}</td>
+              <td>{value}</td>
+              <td>{formatDate(date)}</td>
             </tr>
           );
         })}
