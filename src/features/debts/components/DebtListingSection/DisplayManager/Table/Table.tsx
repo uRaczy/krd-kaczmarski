@@ -1,9 +1,45 @@
+import { ParsedDebt } from '@/features/debts/types/debts/debts';
+import { formatDate } from '@/features/debts/utils/utils';
+
 import './Table.styles.less';
 
-export const Table = () => {
+type Props = {
+  debts: ParsedDebt[];
+  sortKey: keyof ParsedDebt;
+  sortDirection: 'asc' | 'desc';
+  handleSort: (key: keyof ParsedDebt) => void;
+};
+
+export const Table = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
+  const renderSortArrow = (key: keyof ParsedDebt) => {
+    if (sortKey !== key) return null;
+    return sortDirection === 'asc' ? ' 🔼' : ' 🔽';
+  };
+
   return (
-    <>
-      <h1>Table</h1>
-    </>
+    <table>
+      <thead>
+        <tr>
+          <th onClick={() => handleSort('name')}>DŁUŻNIK {renderSortArrow('name')}</th>
+          <th onClick={() => handleSort('nip')}>NIP {renderSortArrow('nip')}</th>
+          <th onClick={() => handleSort('value')}>KWOTA ZADŁUŻENIA {renderSortArrow('value')}</th>
+          <th onClick={() => handleSort('date')}>
+            DATA POWSTANIA ZOBOWIĄZANIA {renderSortArrow('date')}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {debts.map(({ id, name, nip, value, date }) => {
+          return (
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{nip}</td>
+              <td>{value.toFixed(2)}</td>
+              <td>{formatDate(date)}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };
