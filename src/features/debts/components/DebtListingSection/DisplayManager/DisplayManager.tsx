@@ -1,25 +1,36 @@
 import { ParsedDebt } from '@/features/debts/types/debts/debts';
 
+import { Cards } from './Cards/Cards';
 import { Table } from './Table/Table';
 
 import './DisplayManager.styles.less';
 
 type Props = {
+  isMobile: boolean;
   debts: ParsedDebt[];
   sortKey: keyof ParsedDebt;
-  handleSort: (key: keyof ParsedDebt) => void;
   sortDirection: 'asc' | 'desc';
+  handleSort: (key: keyof ParsedDebt) => void;
 };
 
-export const DisplayManager = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
+export const DisplayManager = ({ isMobile, debts, sortKey, sortDirection, handleSort }: Props) => {
   return (
     <>
-      <Table
-        debts={debts}
-        sortKey={sortKey}
-        sortDirection={sortDirection}
-        handleSort={handleSort}
-      />
+      {isMobile ? (
+        <Cards
+          debts={debts}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          handleSort={handleSort}
+        />
+      ) : (
+        <Table
+          debts={debts}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          handleSort={handleSort}
+        />
+      )}
     </>
   );
 };

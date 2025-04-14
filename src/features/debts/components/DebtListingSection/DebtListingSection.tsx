@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { parseDebts } from '../../api/parseDebts';
 import MOCKdebtRecords from '../../mocks/topDebts.mock.json';
 import { ParsedDebt } from '../../types';
+import { useIsMobile } from '../../utils/hooks';
 import { sortDebts } from '../../utils/utils';
 
 import { DisplayManager } from './DisplayManager/DisplayManager';
@@ -14,6 +15,7 @@ export const DebtListingSection = () => {
   const [debts] = useState<ParsedDebt[]>(parseDebts(MOCKdebtRecords));
   const [sortKey, setSortKey] = useState<keyof ParsedDebt>('name');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const isMobile = useIsMobile();
 
   const handleSort = (key: keyof ParsedDebt) => {
     if (sortKey === key) {
@@ -28,9 +30,6 @@ export const DebtListingSection = () => {
     return sortDebts(debts, sortDirection, sortKey);
   }, [debts, sortKey, sortDirection]);
 
-  //* After fetch take care that table is sorted ascending by name
-  // todo: Check if this is the best approach
-
   return (
     <section className='debtListingSection'>
       <Filter />
@@ -38,6 +37,7 @@ export const DebtListingSection = () => {
         debts={sortedDebts}
         sortKey={sortKey}
         sortDirection={sortDirection}
+        isMobile={isMobile}
         handleSort={handleSort}
       />
     </section>

@@ -6,8 +6,8 @@ import './Table.styles.less';
 type Props = {
   debts: ParsedDebt[];
   sortKey: keyof ParsedDebt;
-  handleSort: (key: keyof ParsedDebt) => void;
   sortDirection: 'asc' | 'desc';
+  handleSort: (key: keyof ParsedDebt) => void;
 };
 
 export const Table = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
@@ -34,7 +34,7 @@ export const Table = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
             <tr key={id}>
               <td>{name}</td>
               <td>{nip}</td>
-              <td>{value}</td>
+              <td>{value.toFixed(2)}</td>
               <td>{formatDate(date)}</td>
             </tr>
           );
