@@ -1,15 +1,17 @@
+import { ParsedDebt } from '@/features/debts/types/debts/debts';
+
+import { Table } from './Table/Table';
+
 import './DisplayManager.styles.less';
-import { ResponseDebt } from '@/features/debts/types/debts/debts';
 
 type Props = {
-  debts: ResponseDebt[];
+  debts: ParsedDebt[];
 };
 
 export const DisplayManager = ({ debts }: Props) => {
-  console.log(debts);
   return (
     <>
-      <h1>DisplayManager</h1>
+      <Table debts={debts} />
     </>
   );
 };

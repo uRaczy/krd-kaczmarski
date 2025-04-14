@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -23,6 +24,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       prettier: eslintPluginPrettier,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
       // React specific rules
@@ -39,7 +41,30 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
 
       // Prettier integration
-      'prettier/prettier': 'error',
+      'prettier/prettier': ['error', { bracketSpacing: true }],
+
+      // Curly braces
+      'object-curly-spacing': ['error', 'always'],
+
+      // Import sorting rules:
+      'simple-import-sort/exports': 'warn',
+      'simple-import-sort/imports': [
+        'warn',
+        {
+          groups: [
+            // 1. Built-in Node.js modules
+            ['^node:', '^path', '^fs'],
+            // 2. External packages (`react`, `vite` etc)
+            ['^@?\\w'],
+            // 3. Internal aliases (`@/`)
+            ['^@/'],
+            // 4. Parent imports
+            ['^\\.\\.'],
+            // 5. Sibling imports
+            ['^\\.'],
+          ],
+        },
+      ],
     },
     settings: {
       react: {
@@ -48,3 +73,4 @@ export default tseslint.config(
     },
   },
 );
+
