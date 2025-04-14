@@ -7,7 +7,7 @@ import { useIsMobile } from '../../utils/hooks';
 import { sortDebts } from '../../utils/utils';
 
 import { DisplayManager } from './DisplayManager/DisplayManager';
-import { Filter } from './Filter/Filter';
+import { Search } from './Search/Search';
 
 import './DebtListingSection.styles.less';
 
@@ -32,7 +32,7 @@ export const DebtListingSection = () => {
 
   return (
     <section className='debtListingSection'>
-      <Filter />
+      <Search />
       <DisplayManager
         debts={sortedDebts}
         sortKey={sortKey}
