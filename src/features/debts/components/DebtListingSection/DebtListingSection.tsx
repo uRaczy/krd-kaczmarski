@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { parseDebts } from '../../api/parseDebts';
-import MOCKdebtRecords from '../../mocks/topDebts.mock.json';
-import { ParsedDebt } from '../../types';
-import { useIsMobile } from '../../utils/hooks';
-import { sortDebts } from '../../utils/utils';
+import { ParsedDebt } from '@debts/types';
+import { useIsMobile } from '@debts/utils/hooks';
+import { sortDebts } from '@debts/utils/utils';
+
+import { getParsedTopDebts } from '../../api/getParsedDebts';
 
 import { DisplayManager } from './DisplayManager/DisplayManager';
 import { Search } from './Search/Search';
@@ -12,7 +12,7 @@ import { Search } from './Search/Search';
 import './DebtListingSection.styles.less';
 
 export const DebtListingSection = () => {
-  const [debts] = useState<ParsedDebt[]>(parseDebts(MOCKdebtRecords));
+  const [debts, setDebts] = useState<ParsedDebt[] | null>(null);
   const [sortKey, setSortKey] = useState<keyof ParsedDebt>('name');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const isMobile = useIsMobile();
@@ -26,8 +26,19 @@ export const DebtListingSection = () => {
     }
   };
 
+  useEffect(() => {
+    const setupDebts = async () => {
+      const loadedDebts = await getParsedTopDebts();
+      setTimeout(async () => {
+        setDebts(loadedDebts);
+      }, 2000);
+    };
+
+    setupDebts();
+  }, []);
+
   const sortedDebts = useMemo(() => {
-    return sortDebts(debts, sortDirection, sortKey);
+    return debts ? sortDebts(debts, sortDirection, sortKey) : [];
   }, [debts, sortKey, sortDirection]);
 
   return (

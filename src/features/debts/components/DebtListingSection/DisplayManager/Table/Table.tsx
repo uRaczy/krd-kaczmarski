@@ -1,10 +1,10 @@
-import { ParsedDebt } from '@/features/debts/types/debts/debts';
-import { formatDate } from '@/features/debts/utils/utils';
+import { ParsedDebt } from '@debts/types/debts/debts';
+import { formatDate } from '@debts/utils/utils';
 
 import './Table.styles.less';
 
 type Props = {
-  debts: ParsedDebt[];
+  debts: ParsedDebt[] | null;
   sortKey: keyof ParsedDebt;
   sortDirection: 'asc' | 'desc';
   handleSort: (key: keyof ParsedDebt) => void;
@@ -28,18 +28,22 @@ export const Table = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
           </th>
         </tr>
       </thead>
-      <tbody>
-        {debts.map(({ id, name, nip, value, date }) => {
-          return (
-            <tr key={id}>
-              <td>{name}</td>
-              <td>{nip}</td>
-              <td>{value.toFixed(2)}</td>
-              <td>{formatDate(date)}</td>
-            </tr>
-          );
-        })}
-      </tbody>
+      {!debts ? (
+        <h1>LOADING</h1>
+      ) : (
+        <tbody>
+          {debts.map(({ id, name, nip, value, date }) => {
+            return (
+              <tr key={id}>
+                <td>{name}</td>
+                <td>{nip}</td>
+                <td>{value.toFixed(2)}</td>
+                <td>{formatDate(date)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      )}
     </table>
   );
 };

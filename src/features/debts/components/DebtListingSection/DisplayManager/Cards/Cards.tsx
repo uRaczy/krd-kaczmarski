@@ -1,10 +1,10 @@
-import { ParsedDebt } from '@/features/debts/types/debts/debts';
-import { formatDate } from '@/features/debts/utils/utils';
+import { ParsedDebt } from '@debts/types/debts/debts';
+import { formatDate } from '@debts/utils/utils';
 
 import './Cards.styles.less';
 
 type Props = {
-  debts: ParsedDebt[];
+  debts: ParsedDebt[] | null;
   sortKey: keyof ParsedDebt;
   sortDirection: 'asc' | 'desc';
   handleSort: (key: keyof ParsedDebt) => void;
@@ -34,22 +34,26 @@ export const Cards = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
           DATA {renderSortArrow('date')}
         </button>
       </div>
-      <div className='cards'>
-        {debts.map(({ id, name, nip, value, date }) => (
-          <div className='card' key={id}>
-            <div className='card__title'>{name}</div>
-            <div className='card__row'>
-              <strong>NIP:</strong> {nip}
+      {debts === null ? (
+        <h1 style={{ display: 'block', backgroundColor: 'white' }}>LOADING</h1>
+      ) : (
+        <div className='cards'>
+          {debts.map(({ id, name, nip, value, date }) => (
+            <div className='card' key={id}>
+              <div className='card__title'>{name}</div>
+              <div className='card__row'>
+                <strong>NIP:</strong> {nip}
+              </div>
+              <div className='card__row'>
+                <strong>Kwota:</strong> {value.toFixed(2)} zł
+              </div>
+              <div className='card__row'>
+                <strong>Data:</strong> {formatDate(date)}
+              </div>
             </div>
-            <div className='card__row'>
-              <strong>Kwota:</strong> {value.toFixed(2)} zł
-            </div>
-            <div className='card__row'>
-              <strong>Data:</strong> {formatDate(date)}
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };
