@@ -10,7 +10,12 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended, reactRecommended, prettier],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      reactRecommended,
+      prettier,
+    ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2017,
@@ -57,10 +62,16 @@ export default tseslint.config(
             // 2. External packages (`react`, `vite` etc)
             ['^@?\\w'],
             // 3. Internal aliases (`@/`)
-            ['^@/'],
-            // 4. Parent imports
+            ['^@/', '^@debts/'],
+            // 4. Types imports
+            ['^@debts/types/'],
+            // 5. Components imports
+            ['^@debts/components/'],
+            // 6. Utils and Hooks imports
+            ['^@debts/utils/', '^@debts/api/'],
+            // 7. Parent imports
             ['^\\.\\.'],
-            // 5. Sibling imports
+            // 8. Sibling imports
             ['^\\.'],
           ],
         },
