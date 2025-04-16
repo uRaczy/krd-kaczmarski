@@ -1,6 +1,6 @@
 import { ParsedDebt } from '../types';
 
-import { fetchFilteredDebts, fetchTopDebts } from './fetchers';
+import { fetchSearchDebts, fetchTopDebts } from './fetchers';
 import { parseDebts } from './parsers';
 
 export const getParsedTopDebts = async (): Promise<ParsedDebt[]> => {
@@ -8,7 +8,9 @@ export const getParsedTopDebts = async (): Promise<ParsedDebt[]> => {
   return parseDebts(rawDebts);
 };
 
-export const getParsedFilteredDebts = async (phrase: string): Promise<ParsedDebt[]> => {
-  const rawDebts = await fetchFilteredDebts(phrase);
+export const getParsedSearchDebts = async (
+  phrase: string,
+): Promise<ParsedDebt[]> => {
+  const rawDebts = await fetchSearchDebts(phrase);
   return parseDebts(rawDebts);
 };

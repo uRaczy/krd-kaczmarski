@@ -1,16 +1,29 @@
-import { ParsedDebt } from '@debts/types/debts/debts';
+import { ParsedDebt } from '@/features/debts/types/debts';
+
+import { Loader } from '@debts/components/Loader/Loader';
+import { NoResults } from '@debts/components/NoResults/NoResults';
+
 import { formatDate } from '@debts/utils/utils';
 
 import './Cards.styles.less';
 
 type Props = {
-  debts: ParsedDebt[] | null;
+  debts: ParsedDebt[];
   sortKey: keyof ParsedDebt;
   sortDirection: 'asc' | 'desc';
+  showLoader: boolean;
+  hasLoaded: boolean;
   handleSort: (key: keyof ParsedDebt) => void;
 };
 
-export const Cards = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
+export const Cards = ({
+  debts,
+  sortKey,
+  sortDirection,
+  showLoader,
+  hasLoaded,
+  handleSort,
+}: Props) => {
   const renderSortArrow = (key: keyof ParsedDebt) => {
     if (sortKey !== key) return null;
     return sortDirection === 'asc' ? ' 🔼' : ' 🔽';
@@ -21,22 +34,34 @@ export const Cards = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
       <div className='cards__sort'>
         <label>Sortuj po:</label>
 
-        <button className='cards__sort-button' onClick={() => handleSort('name')}>
+        <button
+          className='cards__sort-button'
+          onClick={() => handleSort('name')}
+        >
           DŁUŻNIK {renderSortArrow('name')}
         </button>
-        <button className='cards__sort-button' onClick={() => handleSort('nip')}>
+        <button
+          className='cards__sort-button'
+          onClick={() => handleSort('nip')}
+        >
           NIP {renderSortArrow('nip')}
         </button>
-        <button className='cards__sort-button' onClick={() => handleSort('value')}>
+        <button
+          className='cards__sort-button'
+          onClick={() => handleSort('value')}
+        >
           KWOTA ZADŁUŻENIA {renderSortArrow('value')}
         </button>
-        <button className='cards__sort-button' onClick={() => handleSort('date')}>
+        <button
+          className='cards__sort-button'
+          onClick={() => handleSort('date')}
+        >
           DATA {renderSortArrow('date')}
         </button>
       </div>
-      {debts === null ? (
-        <h1 style={{ display: 'block', backgroundColor: 'white' }}>LOADING</h1>
-      ) : (
+      {showLoader ? (
+        <Loader />
+      ) : debts.length > 0 ? (
         <div className='cards'>
           {debts.map(({ id, name, nip, value, date }) => (
             <div className='card' key={id}>
@@ -53,7 +78,9 @@ export const Cards = ({ debts, sortKey, sortDirection, handleSort }: Props) => {
             </div>
           ))}
         </div>
-      )}
+      ) : hasLoaded ? (
+        <NoResults />
+      ) : null}
     </>
   );
 };

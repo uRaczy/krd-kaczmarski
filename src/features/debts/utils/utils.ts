@@ -24,7 +24,9 @@ export const sortDebts = (
     }
 
     if (typeof aValue === 'string' && typeof bValue === 'string') {
-      return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      return direction === 'asc'
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
     }
 
     if (typeof aValue === 'number' && typeof bValue === 'number') {
