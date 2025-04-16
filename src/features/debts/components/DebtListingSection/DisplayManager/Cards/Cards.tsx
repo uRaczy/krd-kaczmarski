@@ -64,15 +64,17 @@ export const Cards = ({
           {debts.map(({ id, name, nip, value, date }) => (
             <div className='card' key={id}>
               <span className='card__title'>{name}</span>
-              <span className='card__row'>
-                <strong>NIP:</strong> {nip}
-              </span>
-              <span className='card__row'>
-                <strong>Kwota:</strong> {value.toFixed(2)} zł
-              </span>
-              <span className='card__row'>
-                <strong>Data:</strong> {formatDate(date)}
-              </span>
+              <div className='card__info'>
+                <span className='card__row'>
+                  <strong>NIP:</strong> {nip}
+                </span>
+                <span className='card__row'>
+                  <strong>Kwota:</strong> {value.toFixed(2)} zł
+                </span>
+                <span className='card__row'>
+                  <strong>Data:</strong> {formatDate(date)}
+                </span>
+              </div>
             </div>
           ))}
         </div>

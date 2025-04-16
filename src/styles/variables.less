@@ -1,20 +1,20 @@
 @mobile-max: 768px;
 @desktop-min: 769px;
-@large-min: 1201px;
+@wide-min: 1201px;
 
-.mobile() {
+.mobile(@content) {
   @media (max-width: @mobile-max) {
     @content();
   }
 }
 
-.desktop() {
+.desktop(@content) {
   @media (min-width: @desktop-min) {
     @content();
   }
 }
 
-.large() {
+.wide(@content) {
   @media (min-width: @large-min) {
     @content();
   }
