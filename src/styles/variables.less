@@ -1,0 +1,21 @@
+@mobile-max: 768px;
+@desktop-min: 769px;
+@large-min: 1201px;
+
+.mobile() {
+  @media (max-width: @mobile-max) {
+    @content();
+  }
+}
+
+.desktop() {
+  @media (min-width: @desktop-min) {
+    @content();
+  }
+}
+
+.large() {
+  @media (min-width: @large-min) {
+    @content();
+  }
+}

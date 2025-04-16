@@ -1,0 +1,63 @@
+.debtListingSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    div {
+      display: flex;
+    }
+
+    .search__input {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+    }
+
+    button {
+      padding: 0.75rem 1.25rem;
+      background-color: #ff3333;
+      color: #fff;
+      border: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#ff3333, 10%);
+      }
+    }
+  }
+
+  .mobile() {
+    gap: 1rem;
+
+    .search {
+      label {
+        font-size: 0.75rem;
+      }
+
+      .search__input {
+        font-size: 1rem;
+        padding: 0.5rem;
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+}

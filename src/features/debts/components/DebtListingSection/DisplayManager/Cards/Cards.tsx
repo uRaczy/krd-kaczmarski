@@ -32,31 +32,29 @@ export const Cards = ({
   return (
     <>
       <div className='cards__sort'>
-        <label>Sortuj po:</label>
-
         <button
-          className='cards__sort-button'
+          className={`cards__sort-button ${sortKey === 'name' ? 'active' : ''}`}
           onClick={() => handleSort('name')}
         >
-          DŁUŻNIK {renderSortArrow('name')}
+          Dłużnik {renderSortArrow('name')}
         </button>
         <button
-          className='cards__sort-button'
+          className={`cards__sort-button ${sortKey === 'nip' ? 'active' : ''}`}
           onClick={() => handleSort('nip')}
         >
           NIP {renderSortArrow('nip')}
         </button>
         <button
-          className='cards__sort-button'
+          className={`cards__sort-button ${sortKey === 'value' ? 'active' : ''}`}
           onClick={() => handleSort('value')}
         >
-          KWOTA ZADŁUŻENIA {renderSortArrow('value')}
+          Kwota zadłużenia {renderSortArrow('value')}
         </button>
         <button
-          className='cards__sort-button'
+          className={`cards__sort-button ${sortKey === 'date' ? 'active' : ''}`}
           onClick={() => handleSort('date')}
         >
-          DATA {renderSortArrow('date')}
+          Data {renderSortArrow('date')}
         </button>
       </div>
       {showLoader ? (
@@ -65,16 +63,16 @@ export const Cards = ({
         <div className='cards'>
           {debts.map(({ id, name, nip, value, date }) => (
             <div className='card' key={id}>
-              <div className='card__title'>{name}</div>
-              <div className='card__row'>
+              <span className='card__title'>{name}</span>
+              <span className='card__row'>
                 <strong>NIP:</strong> {nip}
-              </div>
-              <div className='card__row'>
+              </span>
+              <span className='card__row'>
                 <strong>Kwota:</strong> {value.toFixed(2)} zł
-              </div>
-              <div className='card__row'>
+              </span>
+              <span className='card__row'>
                 <strong>Data:</strong> {formatDate(date)}
-              </div>
+              </span>
             </div>
           ))}
         </div>

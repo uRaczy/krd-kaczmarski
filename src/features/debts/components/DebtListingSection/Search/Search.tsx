@@ -16,7 +16,7 @@ export const Search = ({
   console.log(searchValue);
   return (
     <div className='search'>
-      <label htmlFor='search'>PODAJ NIP LUB NAZWĘ DŁUŻNIKA</label>
+      <label htmlFor='search'>Podaj NIP lub nazwę dłużnika</label>
       <div>
         <input
           type='text'
