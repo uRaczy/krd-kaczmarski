@@ -1,9 +1,9 @@
-import { ParsedDebt } from '@/features/debts/types/debts';
+import { ParsedDebt } from '@debts/types';
+import { formatDate } from '@debts/utils';
+import { renderIcon } from '@debts/utils';
 
 import { Loader } from '@debts/components/Loader/Loader';
 import { NoResults } from '@debts/components/NoResults/NoResults';
-
-import { formatDate } from '@debts/utils/utils';
 
 import './Cards.styles.less';
 
@@ -24,39 +24,34 @@ export const Cards = ({
   hasLoaded,
   handleSort,
 }: Props) => {
-  const renderSortArrow = (key: keyof ParsedDebt) => {
-    if (sortKey !== key) return null;
-    return sortDirection === 'asc' ? ' 🔼' : ' 🔽';
-  };
-
   return showLoader ? (
     <Loader />
   ) : debts.length > 0 ? (
-    <section className='cards__section'>
+    <section className='cards-section'>
       <div className='cards__sort'>
         <button
           className={`cards__sort-button ${sortKey === 'name' ? 'active' : ''}`}
           onClick={() => handleSort('name')}
         >
-          Dłużnik {renderSortArrow('name')}
+          Dłużnik {renderIcon('name', sortKey, sortDirection)}
         </button>
         <button
           className={`cards__sort-button ${sortKey === 'nip' ? 'active' : ''}`}
           onClick={() => handleSort('nip')}
         >
-          NIP {renderSortArrow('nip')}
+          NIP {renderIcon('nip', sortKey, sortDirection)}
         </button>
         <button
           className={`cards__sort-button ${sortKey === 'value' ? 'active' : ''}`}
           onClick={() => handleSort('value')}
         >
-          Kwota zadłużenia {renderSortArrow('value')}
+          Kwota zadłużenia {renderIcon('value', sortKey, sortDirection)}
         </button>
         <button
           className={`cards__sort-button ${sortKey === 'date' ? 'active' : ''}`}
           onClick={() => handleSort('date')}
         >
-          Data {renderSortArrow('date')}
+          Data {renderIcon('date', sortKey, sortDirection)}
         </button>
       </div>
       <div className='cards'>

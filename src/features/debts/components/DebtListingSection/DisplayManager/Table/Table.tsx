@@ -1,10 +1,8 @@
-import { ParsedDebt } from '@/features/debts/types/debts';
+import { ParsedDebt } from '@debts/types';
+import { formatDate, renderIcon } from '@debts/utils';
 
-import { IconTriangle } from '@debts/components/icons';
 import { Loader } from '@debts/components/Loader/Loader';
 import { NoResults } from '@debts/components/NoResults/NoResults';
-
-import { formatDate } from '@debts/utils/utils';
 
 import './Table.styles.less';
 
@@ -25,38 +23,27 @@ export const Table = ({
   hasLoaded,
   handleSort,
 }: Props) => {
-  const renderIcon = (key: keyof ParsedDebt) => {
-    const isActive = sortKey === key;
-    const directionClass = isActive ? `table__icon--${sortDirection}` : '';
-
-    return (
-      <IconTriangle
-        className={`table__icon ${isActive ? 'table__icon--active' : ''} ${directionClass}`}
-      />
-    );
-  };
-
   return showLoader ? (
     <Loader />
   ) : debts.length > 0 ? (
-    <section className='table__section'>
+    <section className='table-section'>
       <div className='table__wrapper'>
         <table className='table'>
-          <thead className='table__head'>
-            <tr className='table__row table__row-header'>
+          <thead>
+            <tr>
               <th className='table__header' onClick={() => handleSort('name')}>
                 DŁUŻNIK
-                {renderIcon('name')}
+                {renderIcon('name', sortKey, sortDirection)}
               </th>
               <th className='table__header' onClick={() => handleSort('nip')}>
-                NIP {renderIcon('nip')}
+                NIP {renderIcon('nip', sortKey, sortDirection)}
               </th>
               <th className='table__header' onClick={() => handleSort('value')}>
-                KWOTA ZADŁUŻENIA {renderIcon('value')}
+                KWOTA ZADŁUŻENIA {renderIcon('value', sortKey, sortDirection)}
               </th>
               <th className='table__header' onClick={() => handleSort('date')}>
                 DATA POWSTANIA ZOBOWIĄZANIA
-                {renderIcon('date')}
+                {renderIcon('date', sortKey, sortDirection)}
               </th>
             </tr>
           </thead>
