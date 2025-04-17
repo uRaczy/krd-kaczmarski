@@ -14,7 +14,7 @@ export const Search = ({
   handleSearch,
 }: Props) => {
   return (
-    <section className='search__section'>
+    <section className='search-section'>
       <div className='search__wrapper'>
         <div className='search'>
           <label className='search__label' htmlFor='search'>
@@ -26,6 +26,7 @@ export const Search = ({
               value={searchValue}
               onChange={handleInputChange}
               className='search__input'
+              id='search'
               name='search'
             ></input>
             <button
