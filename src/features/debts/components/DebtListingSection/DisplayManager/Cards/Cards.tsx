@@ -29,8 +29,10 @@ export const Cards = ({
     return sortDirection === 'asc' ? ' 🔼' : ' 🔽';
   };
 
-  return (
-    <>
+  return showLoader ? (
+    <Loader />
+  ) : debts.length > 0 ? (
+    <section className='cards__section'>
       <div className='cards__sort'>
         <button
           className={`cards__sort-button ${sortKey === 'name' ? 'active' : ''}`}
@@ -57,30 +59,28 @@ export const Cards = ({
           Data {renderSortArrow('date')}
         </button>
       </div>
-      {showLoader ? (
-        <Loader />
-      ) : debts.length > 0 ? (
-        <div className='cards'>
-          {debts.map(({ id, name, nip, value, date }) => (
-            <div className='card' key={id}>
-              <span className='card__title'>{name}</span>
-              <div className='card__info'>
-                <span className='card__row'>
-                  <strong>NIP:</strong> {nip}
-                </span>
-                <span className='card__row'>
-                  <strong>Kwota:</strong> {value.toFixed(2)} zł
-                </span>
-                <span className='card__row'>
-                  <strong>Data:</strong> {formatDate(date)}
-                </span>
-              </div>
+      <div className='cards'>
+        {debts.map(({ id, name, nip, value, date }) => (
+          <div className='card' key={id}>
+            <span className='card__title'>{name}</span>
+            <div className='card__data'>
+              <span className='card__row'>
+                <span className='card__label'>NIP:</span> {nip}
+              </span>
+              <span className='card__row'>
+                <span className='card__label'>Kwota:</span>
+                {value.toFixed(2)} zł
+              </span>
+              <span className='card__row'>
+                <span className='card__label'>Data:</span>
+                {formatDate(date)}
+              </span>
             </div>
-          ))}
-        </div>
-      ) : hasLoaded ? (
-        <NoResults />
-      ) : null}
-    </>
-  );
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : hasLoaded ? (
+    <NoResults />
+  ) : null;
 };

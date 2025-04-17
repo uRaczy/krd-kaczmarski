@@ -79,6 +79,13 @@ export const DebtListingSection = () => {
       return;
     }
 
+    const forbiddenCharsRegex = /[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]/g;
+    if (forbiddenCharsRegex.test(trimmedValue)) {
+      setError('Dozwolone są tylko litery, cyfry i spacje');
+      loaderRef.current.stop();
+      return;
+    }
+
     if (trimmedValue.length === 0) {
       setError(null);
       const topDebts = await getParsedTopDebts();
