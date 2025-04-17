@@ -1,4 +1,4 @@
-import { ParsedDebt } from '@/features/debts/types/debts';
+import { ParsedDebt } from '@debts/types';
 
 import { Cards } from './Cards/Cards';
 import { Table } from './Table/Table';

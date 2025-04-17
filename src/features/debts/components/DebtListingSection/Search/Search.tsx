@@ -13,20 +13,30 @@ export const Search = ({
   handleInputChange,
   handleSearch,
 }: Props) => {
-  console.log(searchValue);
   return (
-    <div className='search'>
-      <label htmlFor='search'>PODAJ NIP LUB NAZWĘ DŁUŻNIKA</label>
-      <div>
-        <input
-          type='text'
-          value={searchValue}
-          onChange={handleInputChange}
-          className='search__input'
-          name='search'
-        ></input>
-        <button onClick={() => handleSearch(searchValue)}>SZUKAJ</button>
+    <section className='search__section'>
+      <div className='search__wrapper'>
+        <div className='search'>
+          <label className='search__label' htmlFor='search'>
+            Podaj NIP lub nazwę dłużnika
+          </label>
+          <div className='search__controls'>
+            <input
+              type='text'
+              value={searchValue}
+              onChange={handleInputChange}
+              className='search__input'
+              name='search'
+            ></input>
+            <button
+              className='search__button'
+              onClick={() => handleSearch(searchValue)}
+            >
+              SZUKAJ
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };

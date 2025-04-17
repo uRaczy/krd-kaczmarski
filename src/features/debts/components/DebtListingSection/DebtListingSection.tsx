@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { useDelayedLoader } from '@debts/hooks';
+import { useIsMobile } from '@debts/hooks';
 import { ParsedDebt } from '@debts/types';
 import { ChangeEvent } from '@debts/types';
+import { sortDebts } from '@debts/utils';
 
-import { useDelayedLoader } from '@debts/utils/hooks/useDelayedLoader';
-import { useIsMobile } from '@debts/utils/hooks/useIsMobile';
-import { sortDebts } from '@debts/utils/utils';
 import {
   getParsedSearchDebts,
   getParsedTopDebts,
@@ -75,6 +75,13 @@ export const DebtListingSection = () => {
     const trimmedValue = searchValue.trim();
     if (trimmedValue.length < 3 && trimmedValue.length > 0) {
       setError('Wpisz co najmniej 3 znaki, aby wyszukać');
+      loaderRef.current.stop();
+      return;
+    }
+
+    const forbiddenCharsRegex = /[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]/g;
+    if (forbiddenCharsRegex.test(trimmedValue)) {
+      setError('Dozwolone są tylko litery, cyfry i spacje');
       loaderRef.current.stop();
       return;
     }

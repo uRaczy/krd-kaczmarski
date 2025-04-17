@@ -1,0 +1,59 @@
+@import '@/styles/variables.less';
+
+.table-section {
+  .table__wrapper {
+    max-width: @desktop-wide;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table__header {
+    user-select: none;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: @color-text-muted;
+    text-transform: uppercase;
+    border-bottom: 1px solid @color-border;
+    cursor: pointer;
+    text-wrap: nowrap;
+
+    &:hover {
+      background-color: @color-blue-light;
+    }
+  }
+
+  .table__row {
+    border-bottom: 1px solid @color-border;
+    &:hover {
+      background-color: @color-blue-light;
+    }
+  }
+
+  .table__cell {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .sort-icon {
+    width: 0.5rem;
+    fill: @color-text-muted;
+    opacity: 0;
+    transform: rotate(180deg);
+    margin-left: 0.25rem;
+
+    &--active {
+      opacity: 1;
+    }
+
+    &--desc {
+      transform: rotate(0deg);
+    }
+  }
+}

@@ -62,7 +62,7 @@ export default tseslint.config(
             // 2. External packages (`react`, `vite` etc)
             ['^@?\\w'],
             // 3. Internal aliases (`@/`)
-            ['^@/', '^@debts/'],
+            ['^@/', '^@debts/', '^@styles/'],
             // 4. Types imports
             ['^@debts/types/'],
             // 5. Components imports

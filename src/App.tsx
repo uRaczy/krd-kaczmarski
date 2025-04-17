@@ -1,4 +1,4 @@
-import { DebtListingSection } from './features/debts';
+import { DebtListingSection } from './features/debts/components/DebtListingSection/DebtListingSection';
 
 import './App.styles.less';
 
